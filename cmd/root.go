@@ -15,7 +15,6 @@
 package cmd
 
 import (
-	"encoding/base64"
 	"fmt"
 	"net/url"
 	"os"
@@ -62,15 +61,6 @@ var rootCmd = &cobra.Command{
 			if err != nil {
 				fmt.Println("Error:", err.Error())
 				os.Exit(1)
-			}
-
-			if combine {
-				outputFilename := masterJson.ClipId + ".mp4"
-				err = combineVideoAndAudio(videoOutputFilename, audioOutputFilename, outputFilename)
-				if err != nil {
-					fmt.Println("Error:", err.Error())
-					os.Exit(1)
-				}
 			}
 		}
 
