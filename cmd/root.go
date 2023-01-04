@@ -56,22 +56,6 @@ var rootCmd = &cobra.Command{
 			os.Exit(1)
 		}
 
-		videoOutputFilename := masterJson.ClipId + "-video.mp4"
-		err = createVideo(client, masterJson, masterJsonUrl, videoOutputFilename)
-		if err != nil {
-			fmt.Println("Error:", err.Error())
-
-			if _, ok := err.(base64.CorruptInputError); ok {
-				query := masterJsonUrl.Query()
-				query.Add("base64_init", "1")
-				query.Del("query_string_ranges")
-				masterJsonUrl.RawQuery = query.Encode()
-				fmt.Println("Try this url:", masterJsonUrl.String())
-			}
-
-			os.Exit(1)
-		}
-
 		if len(masterJson.Audio) > 0 {
 			audioOutputFilename := masterJson.ClipId + "-audio.mp4"
 			err = createAudio(client, masterJson, masterJsonUrl, audioOutputFilename)
